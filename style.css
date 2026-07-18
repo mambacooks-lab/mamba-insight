@@ -1,0 +1,329 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#111827;
+
+    color:white;
+
+    font-family:'Inter',sans-serif;
+
+    padding:40px;
+}
+
+.header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.header h1{
+
+    font-size:48px;
+
+    font-weight:700;
+}
+
+.header p{
+
+    color:#9CA3AF;
+
+    margin-top:10px;
+}
+
+.quality-card{
+
+    background:#1F2937;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    max-width:500px;
+
+    margin:auto;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+}
+
+.score{
+
+    font-size:80px;
+
+    color:#FBBF24;
+
+    margin-top:15px;
+
+    font-weight:bold;
+
+}
+
+.cards{
+
+    display:flex;
+
+    gap:25px;
+
+    justify-content:center;
+
+    margin-top:40px;
+
+}
+
+.food-card{
+
+    width:220px;
+
+    background:#1F2937;
+
+    border-radius:18px;
+
+    padding:30px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.food-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.food-card h3{
+
+    font-size:28px;
+
+    margin-bottom:20px;
+
+}
+
+.food-card strong{
+
+    font-size:40px;
+
+    color:#FBBF24;
+
+}
+
+.insight{
+
+    background:#1F2937;
+
+    margin-top:40px;
+
+    border-radius:18px;
+
+    padding:30px;
+
+}
+
+.insight h2{
+
+    margin-top:20px;
+
+}
+
+.green {
+    color: #22c55e;
+}
+
+.yellow {
+    color: #fbbf24;
+}
+
+.red {
+    color: #ef4444;
+}
+
+#refreshBtn {
+  display: block;
+  margin: 30px auto 50px;
+  padding: 14px 28px;
+  background: #fbbf24;
+  color: #111827;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#refreshBtn:hover {
+  background: #f59e0b;
+  transform: scale(1.05);
+}
+
+#refreshBtn:active {
+  transform: scale(0.98);
+}
+
+.health-meter {
+  width: 80%;
+  height: 18px;
+  margin: 25px auto 0;
+  background: #111827;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.health-meter-fill {
+  width: 0%;
+  height: 100%;
+  background: #fbbf24;
+  border-radius: 999px;
+  transition: width 0.6s ease, background 0.3s ease;
+}
+
+.trend-section {
+  width: 85%;
+  margin: 50px auto;
+  padding: 30px;
+  background: #1f2937;
+  border-radius: 20px;
+}
+
+.trend-section h2 {
+  margin-bottom: 25px;
+}
+
+.trend-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  min-height: 220px;
+  padding: 20px;
+  background: #111827;
+  border-radius: 14px;
+  overflow-x: auto;
+}
+
+.trend-bar-group {
+  min-width: 65px;
+  text-align: center;
+}
+
+.trend-value {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.trend-bar {
+  width: 45px;
+  margin: 0 auto;
+  background: #fbbf24;
+  border-radius: 8px 8px 0 0;
+  transition: height 0.4s ease;
+}
+
+.trend-time {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.alerts-section {
+  width: 85%;
+  margin: 50px auto;
+  padding: 30px;
+  background: #1f2937;
+  border-radius: 20px;
+}
+
+.alerts-section h2 {
+  margin-bottom: 25px;
+}
+
+.alerts-list {
+  display: grid;
+  gap: 16px;
+}
+
+.alert-card {
+  padding: 20px;
+  border-radius: 14px;
+  background: #111827;
+  border-left: 6px solid;
+}
+
+.alert-card h3 {
+  margin: 0 0 8px;
+}
+
+.alert-card p {
+  margin: 4px 0;
+}
+
+.alert-critical {
+  border-color: #ef4444;
+}
+
+.alert-warning {
+  border-color: #fbbf24;
+}
+
+.alert-success {
+  border-color: #22c55e;
+}
+
+.operations-section {
+  width: 85%;
+  margin: 40px auto;
+  padding: 30px;
+  background: #1f2937;
+  border-radius: 20px;
+}
+
+.operations-section h2 {
+  margin-bottom: 25px;
+}
+
+.operations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.operation-card {
+  padding: 22px;
+  text-align: center;
+  background: #111827;
+  border-radius: 14px;
+}
+
+.operation-card p {
+  margin: 0 0 10px;
+  color: #9ca3af;
+  font-weight: bold;
+}
+
+.operation-card h3 {
+  margin: 0;
+  font-size: 32px;
+  color: #fbbf24;
+}
+
+@media (max-width: 850px) {
+  .operations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .operations-grid {
+    grid-template-columns: 1fr;
+  }
+}

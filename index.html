@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Mamba Insight</title>
+
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+      <link rel="stylesheet" href="style.css">
+
+    
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Mamba Insight</h1>
+        <p>Restaurant Food Quality Dashboard</p>
+    </div>
+
+    <div class="operations-section">
+  <h2>📊 Today’s Operations</h2>
+
+  <div class="operations-grid">
+    <div class="operation-card">
+      <p>🍽️ Orders</p>
+      <h3 id="ordersCount">423</h3>
+    </div>
+
+    <div class="operation-card">
+      <p>💰 Revenue</p>
+      <h3 id="revenueAmount">$6,842</h3>
+    </div>
+
+    <div class="operation-card">
+      <p>⭐ Average Rating</p>
+      <h3 id="averageRating">4.8</h3>
+    </div>
+
+    <div class="operation-card">
+      <p>⏱️ Average Prep Time</p>
+      <h3 id="prepTime">7 min</h3>
+    </div>
+  </div>
+</div>
+
+    <div class="quality-card">
+        <h2>Today's Food Quality</h2>
+
+        <div class="score" id="restaurantScore">89%</div>
+
+    <div class="health-meter">
+        <div class="health-meter-fill" id="healthMeterFill"></div>
+      </div>
+    </div>
+    <button 
+          id="refreshBtn">🔄 Refresh Scores
+    </button>
+    
+    <div 
+    class="cards" id="menuCards">
+    </div>
+
+
+    <div class="insight">
+     <h2>🔥 Most Loved</h2>
+      <p id="mostLovedText">
+        Tacos are today's top performer.
+      </p>
+
+     <h2>⚠️ Needs Attention</h2>
+     <p id="needsAttentionText">
+        Fries currently has the lowest quality score.
+     </p>
+    </div>
+
+    <div class="alerts-section">
+     <h2>🚨 Live Restaurant Alerts</h2>
+     <div id="alertsList" class="alerts-list"></div>
+    </div>
+
+    <div class="trend-section">
+     <h2>📈 Food Quality Trend</h2>
+     <div id="trendChart" class="trend-chart"></div>
+    </div>
+
+
+<script src="app.js"></script>
+
+
+
+</body>
+</html>
