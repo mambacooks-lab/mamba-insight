@@ -179,10 +179,6 @@ document.getElementById("refreshBtn").addEventListener("click", () => {
     item.score = Math.floor(Math.random() * 21) + 80;
   });
 
-  displayMenuCards();
-  updateInsights();
-  updateRestaurantScore();
-});
 
 function updateTrendChart(score) {
   const currentTime = new Date().toLocaleTimeString([], {
