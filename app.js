@@ -174,11 +174,6 @@ updateInsights();
 updateAlerts();
 updateRestaurantScore();
 
-document.getElementById("refreshBtn").addEventListener("click", () => {
-  menuItems.forEach(item => {
-    item.score = Math.floor(Math.random() * 21) + 80;
-  });
-
 
 function updateTrendChart(score) {
   const currentTime = new Date().toLocaleTimeString([], {
