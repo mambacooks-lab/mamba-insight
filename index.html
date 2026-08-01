@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mamba Insight Pro</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="brand-icon">M</div>
+
+          <div>
+            <h1>Mamba Insight</h1>
+            <p>Restaurant Intelligence</p>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-link active">
+            <span>📊</span>
+            Dashboard
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>🍔</span>
+            Menu Analytics
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>🧾</span>
+            Orders
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>🚨</span>
+            Alerts
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>🤖</span>
+            AI Coach
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>📈</span>
+            Reports
+          </a>
+
+          <a href="#" class="nav-link">
+            <span>⚙️</span>
+            Settings
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <p>Built by Marvin</p>
+        <span>Mamba Insight v2</span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Restaurant Operations</p>
+          <h2>Welcome back, Marvin 👋</h2>
+          <p class="subtitle">
+            Monitor food quality, customer satisfaction, and daily performance.
+          </p>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="themeToggle" class="icon-button" aria-label="Toggle dark mode"> 🌙
+          </button>
+
+          <div class="profile">
+            <div class="profile-avatar">ML</div>
+
+            <div>
+              <strong>Marvin Larios</strong>
+              <span>Administrator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="priority-center">
+  <div class="priority-center-header">
+    <div>
+      <p class="eyebrow">AI Priority Center</p>
+      <h3>What needs attention right now?</h3>
+    </div>
+
+    <span id="priorityConfidence" class="priority-confidence">
+      88% confidence
+    </span>
+  </div>
+
+  <div class="priority-center-content">
+    <div class="priority-symbol">🤖</div>
+
+    <div class="priority-copy">
+      <span id="priorityLevel" class="priority-level">
+        Highest Priority
+      </span>
+
+      <h4 id="priorityTitle">
+        Review Street Tacos preparation
+      </h4>
+
+      <p id="priorityDescription">
+        Street Tacos currently have the lowest customer satisfaction score.
+      </p>
+
+      <p id="priorityImpact" class="priority-impact">
+        Expected impact: improve consistency and protect customer ratings.
+      </p>
+    </div>
+
+    <div class="priority-actions">
+      <button id="openPriorityCoach" class="primary-button">
+        Open AI Coach
+      </button>
+
+      <button id="completePriority" class="secondary-button">
+        Mark Complete
+      </button>
+    </div>
+  </div>
+</section>
+
+      <section class="dashboard-grid">
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-icon">🧾</span>
+            <span class="metric-change positive">+8.2%</span>
+          </div>
+
+          <p>Orders Today</p>
+          <h3 id="ordersCount">423</h3>
+          <span class="metric-caption">Compared with yesterday</span>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-icon">💰</span>
+            <span class="metric-change positive">+12.4%</span>
+          </div>
+
+          <p>Revenue</p>
+          <h3 id="revenueAmount">$6,842</h3>
+          <span class="metric-caption">Today's total sales</span>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-icon">⭐</span>
+            <span class="metric-change positive">+0.3</span>
+          </div>
+
+          <p>Average Rating</p>
+          <h3 id="averageRating">4.8</h3>
+          <span class="metric-caption">Based on customer reviews</span>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-icon">⏱️</span>
+            <span class="metric-change negative">+1 min</span>
+          </div>
+
+          <p>Average Prep Time</p>
+          <h3 id="prepTime">7 min</h3>
+          <span class="metric-caption">Kitchen performance</span>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel health-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Live Overview</p>
+              <h3>Restaurant Health Score</h3>
+            </div>
+
+            <span class="status-badge">Live</span>
+          </div>
+
+          <div class="health-content">
+            <div>
+              <div class="health-score" id="restaurantScore">87%</div>
+              <p>Overall restaurant performance</p>
+            </div>
+
+            <div class="health-meter">
+              <div id="healthMeterFill" class="health-meter-fill"></div>
+            </div>
+
+            <button id="refreshBtn" class="primary-button">
+              Refresh Dashboard
+            </button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">AI Recommendation</p>
+              <h3>Today's Priority</h3>
+            </div>
+
+            <span class="ai-badge">AI</span>
+          </div>
+
+          <div class="priority-card">
+            <span class="priority-icon">🍟</span>
+
+            <div>
+              <strong>Improve fry consistency</strong>
+              <p>
+                Check oil temperature and holding time during peak service.
+              </p>
+            </div>
+          </div>
+
+          <button id="aiInsightsBtn" class="secondary-button">
+            View AI Insights
+          </button>
+        </article>
+      </section>
+
+      <section class="panel menu-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Menu Performance</p>
+            <h3>Customer Satisfaction</h3>
+          </div>
+
+          <button class="text-button">View all items</button>
+        </div>
+
+        <div id="menuCards" class="menu-grid"></div>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Performance Trend</p>
+              <h3>Food Quality Score</h3>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Live Monitoring</p>
+              <h3>Operational Alerts</h3>
+            </div>
+          </div>
+
+          <div id="alertsList" class="alerts-list"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div id="aiModal" class="modal-overlay">
+  <div class="ai-modal">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow">Mamba Intelligence</p>
+        <h3>AI Restaurant Coach</h3>
+      </div>
+
+      <button id="closeAiModal" class="modal-close" aria-label="Close">
+        ×
+      </button>
+    </div>
+
+    <div class="ai-summary">
+      <div class="ai-summary-score">
+        <span>Restaurant Health</span>
+        <strong id="aiHealthScore">87%</strong>
+      </div>
+
+      <p id="aiSummaryText">
+        Your restaurant is performing well, but fryer consistency needs attention.
+      </p>
+    </div>
+
+    <div class="insight-grid">
+      <section class="insight-section">
+        <h4>Strengths</h4>
+        <div id="strengthsList"></div>
+      </section>
+
+      <section class="insight-section">
+        <h4>Warnings</h4>
+        <div id="warningsList"></div>
+      </section>
+    </div>
+
+    <section class="recommendation-box">
+
+        <section class="prediction-box">
+  <div class="prediction-heading">
+    <div>
+      <p class="eyebrow">Performance Forecast</p>
+      <h4>Next Service Prediction</h4>
+    </div>
+
+    <button id="generatePredictionBtn" class="prediction-button">
+      Generate Prediction
+    </button>
+  </div>
+
+  <div id="predictionResult" class="prediction-result hidden">
+    <div class="prediction-stat">
+      <span>Predicted outcome</span>
+      <strong id="predictedOutcome">Stable performance</strong>
+    </div>
+
+    <div class="prediction-stat">
+      <span>Confidence</span>
+      <strong id="predictionConfidence">88%</strong>
+    </div>
+
+    <div class="prediction-details">
+      <p id="predictionReason"></p>
+      <p id="predictionAction"></p>
+      <p id="predictionImpact"></p>
+    </div>
+  </div>
+</section>
+
+      <span>Today's Recommendation</span>
+      <h4 id="aiRecommendation">
+        Reduce fry holding time to under five minutes.
+      </h4>
+      <p id="aiImpact">
+        Expected impact: improved food quality and customer satisfaction.
+      </p>
+    </section>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

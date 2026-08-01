@@ -1,0 +1,490 @@
+// =========================
+// MENU DATA
+// =========================
+
+const menuItems = [
+    {
+        name: "Classic Burger",
+        icon: "🍔",
+        satisfaction: 98,
+        rating: 5,
+        status: "Excellent"
+    },
+    {
+        name: "Crispy Fries",
+        icon: "🍟",
+        satisfaction: 91,
+        rating: 4,
+        status: "Great"
+    },
+    {
+        name: "Street Tacos",
+        icon: "🌮",
+        satisfaction: 87,
+        rating: 4,
+        status: "Good"
+    },
+    {
+        name: "Garden Salad",
+        icon: "🥗",
+        satisfaction: 95,
+        rating: 5,
+        status: "Excellent"
+    }
+];
+
+// =========================
+// ALERT DATA
+// =========================
+
+const alerts = [
+    {
+        icon: "🟢",
+        title: "Kitchen Running Smoothly",
+        message: "No issues detected during the last hour."
+    },
+    {
+        icon: "🟡",
+        title: "Dining Room Wait",
+        message: "Average wait time increased to 12 minutes."
+    },
+    {
+        icon: "🔴",
+        title: "Fryer Temperature",
+        message: "Oil temperature dropped below target."
+    },
+    {
+        icon: "🤖",
+        title: "AI Coach",
+        message: "Recommend checking burger prep consistency."
+    }
+];
+
+// =========================
+// MENU CARDS
+// =========================
+
+const menuCards = document.getElementById("menuCards");
+
+function createStars(rating) {
+    return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
+
+function renderMenuCards() {
+    menuCards.innerHTML = menuItems
+        .map((item) => {
+            return `
+                <article class="menu-card">
+                    <div class="menu-card-header">
+                        <span class="menu-item-icon">${item.icon}</span>
+                        <span class="menu-score">${item.satisfaction}%</span>
+                    </div>
+
+                    <h4>${item.name}</h4>
+
+                    <div class="star-rating">
+                        ${createStars(item.rating)}
+                    </div>
+
+                    <div class="menu-progress">
+                        <div
+                            class="menu-progress-fill"
+                            style="width: ${item.satisfaction}%"
+                        ></div>
+                    </div>
+
+                    <div class="menu-card-footer">
+                        <span>Customer satisfaction</span>
+                        <strong>${item.status}</strong>
+                    </div>
+                </article>
+            `;
+        })
+        .join("");
+}
+
+// =========================
+// CHART
+// =========================
+
+const chartCanvas = document.getElementById("trendChart");
+const chartContext = chartCanvas.getContext("2d");
+
+const chartGradient = chartContext.createLinearGradient(0, 0, 0, 320);
+
+chartGradient.addColorStop(0, "rgba(37, 99, 235, 0.35)");
+chartGradient.addColorStop(1, "rgba(37, 99, 235, 0)");
+
+const trendChart = new Chart(chartCanvas, {
+    type: "line",
+
+    data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+
+        datasets: [
+            {
+                label: "Food Quality Score",
+                data: [82, 85, 84, 89, 91, 88, 94],
+                borderColor: "#2563eb",
+                backgroundColor: chartGradient,
+                fill: true,
+                borderWidth: 3,
+                tension: 0.4,
+                pointRadius: 4,
+                pointHoverRadius: 7,
+                pointBackgroundColor: "#ffffff",
+                pointBorderColor: "#2563eb",
+                pointBorderWidth: 3
+            }
+        ]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        interaction: {
+            intersect: false,
+            mode: "index"
+        },
+
+        plugins: {
+            legend: {
+                display: false
+            },
+
+            tooltip: {
+                backgroundColor: "#111827",
+                padding: 12,
+                displayColors: false,
+
+                callbacks: {
+                    label(context) {
+                        return `Quality score: ${context.raw}%`;
+                    }
+                }
+            }
+        },
+
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+
+                border: {
+                    display: false
+                },
+
+                ticks: {
+                    color: "#6b7280"
+                }
+            },
+
+            y: {
+                min: 70,
+                max: 100,
+
+                border: {
+                    display: false
+                },
+
+                grid: {
+                    color: "rgba(148, 163, 184, 0.18)"
+                },
+
+                ticks: {
+                    stepSize: 5,
+                    color: "#6b7280",
+
+                    callback(value) {
+                        return `${value}%`;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// =========================
+// ALERTS
+// =========================
+
+const alertsList = document.getElementById("alertsList");
+
+function renderAlerts() {
+    alertsList.innerHTML = alerts
+        .map((alert) => {
+            return `
+                <div class="alert-card">
+                    <div class="alert-icon">${alert.icon}</div>
+
+                    <div>
+                        <h4>${alert.title}</h4>
+                        <p>${alert.message}</p>
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+}
+
+// =========================
+// REFRESH DASHBOARD
+// =========================
+
+const refreshButton = document.getElementById("refreshBtn");
+const restaurantScore = document.getElementById("restaurantScore");
+const healthMeterFill = document.getElementById("healthMeterFill");
+
+function refreshDashboard() {
+    const newScore = Math.floor(Math.random() * 11) + 85;
+
+    restaurantScore.textContent = `${newScore}%`;
+    healthMeterFill.style.width = `${newScore}%`;
+
+    trendChart.data.datasets[0].data =
+        trendChart.data.datasets[0].data.map(() => {
+            return Math.floor(Math.random() * 16) + 82;
+        });
+
+    trendChart.update();
+
+    refreshButton.textContent = "Dashboard Updated ✓";
+
+    setTimeout(() => {
+        refreshButton.textContent = "Refresh Dashboard";
+    }, 1500);
+}
+
+refreshButton.addEventListener("click", refreshDashboard);
+
+// =========================
+// DARK MODE
+// =========================
+
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    const darkModeEnabled = document.body.classList.contains("dark-mode");
+
+    themeToggle.textContent = darkModeEnabled ? "☀️" : "🌙";
+
+    localStorage.setItem(
+        "mambaInsightTheme",
+        darkModeEnabled ? "dark" : "light"
+    );
+});
+
+const savedTheme = localStorage.getItem("mambaInsightTheme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️";
+}
+
+// =========================
+// AI RESTAURANT COACH
+// =========================
+
+const aiInsightsButton = document.getElementById("aiInsightsBtn");
+const aiModal = document.getElementById("aiModal");
+const closeAiModal = document.getElementById("closeAiModal");
+
+const aiHealthScore = document.getElementById("aiHealthScore");
+const aiSummaryText = document.getElementById("aiSummaryText");
+const strengthsList = document.getElementById("strengthsList");
+const warningsList = document.getElementById("warningsList");
+const aiRecommendation = document.getElementById("aiRecommendation");
+const aiImpact = document.getElementById("aiImpact");
+
+function createInsightItem(icon, text) {
+    return `
+        <div class="insight-item">
+            <span>${icon}</span>
+            <p>${text}</p>
+        </div>
+    `;
+}
+
+function generateAiInsights() {
+    const score = Number.parseInt(restaurantScore.textContent, 10);
+    const prepTime = Number.parseInt(
+        document.getElementById("prepTime").textContent,
+        10
+    );
+    const rating = Number.parseFloat(
+        document.getElementById("averageRating").textContent
+    );
+
+    const lowestMenuItem = [...menuItems].sort(
+        (a, b) => a.satisfaction - b.satisfaction
+    )[0];
+
+    const strengths = [];
+    const warnings = [];
+
+    if (score >= 90) {
+        strengths.push("Overall restaurant performance is excellent.");
+    } else {
+        warnings.push("The restaurant health score has room to improve.");
+    }
+
+    if (rating >= 4.7) {
+        strengths.push(`Customer rating remains strong at ${rating}.`);
+    } else {
+        warnings.push(`Customer rating has fallen to ${rating}.`);
+    }
+
+    if (prepTime <= 7) {
+        strengths.push(`Average prep time is efficient at ${prepTime} minutes.`);
+    } else {
+        warnings.push(`Prep time is elevated at ${prepTime} minutes.`);
+    }
+
+    warnings.push(
+        `${lowestMenuItem.name} has the lowest satisfaction score at ${lowestMenuItem.satisfaction}%.`
+    );
+
+    aiHealthScore.textContent = `${score}%`;
+
+    aiSummaryText.textContent =
+        score >= 90
+            ? "Operations are strong overall. Focus on the lowest-performing menu item to protect consistency."
+            : "Performance is stable, but several operational areas need attention today.";
+
+    strengthsList.innerHTML = strengths
+        .map((item) => createInsightItem("✓", item))
+        .join("");
+
+    warningsList.innerHTML = warnings
+        .map((item) => createInsightItem("⚠", item))
+        .join("");
+
+    aiRecommendation.textContent =
+        `Review the preparation process for ${lowestMenuItem.name} and coach the team on portioning, temperature, and holding time.`;
+
+    aiImpact.textContent =
+        "Expected impact: higher consistency, fewer complaints, and a stronger restaurant health score.";
+}
+
+function openAiCoach() {
+    generateAiInsights();
+    aiModal.classList.add("open");
+}
+
+function closeAiCoach() {
+    aiModal.classList.remove("open");
+}
+
+aiInsightsButton.addEventListener("click", openAiCoach);
+closeAiModal.addEventListener("click", closeAiCoach);
+
+aiModal.addEventListener("click", (event) => {
+    if (event.target === aiModal) {
+        closeAiCoach();
+    }
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        closeAiCoach();
+    }
+});
+
+// =========================
+// PERFORMANCE PREDICTOR
+// =========================
+
+const generatePredictionButton = document.getElementById(
+    "generatePredictionBtn"
+);
+
+const predictionResult = document.getElementById("predictionResult");
+const predictedOutcome = document.getElementById("predictedOutcome");
+const predictionConfidence = document.getElementById(
+    "predictionConfidence"
+);
+const predictionReason = document.getElementById("predictionReason");
+const predictionAction = document.getElementById("predictionAction");
+const predictionImpact = document.getElementById("predictionImpact");
+
+function generatePerformancePrediction() {
+    const score = Number.parseInt(restaurantScore.textContent, 10);
+
+    const prepTimeValue = Number.parseInt(
+        document.getElementById("prepTime").textContent,
+        10
+    );
+
+    const ratingValue = Number.parseFloat(
+        document.getElementById("averageRating").textContent
+    );
+
+    const lowestMenuItem = [...menuItems].sort(
+        (a, b) => a.satisfaction - b.satisfaction
+    )[0];
+
+    let outcome;
+    let confidence;
+    let reason;
+    let action;
+    let impact;
+
+    if (score >= 92 && prepTimeValue <= 7 && ratingValue >= 4.7) {
+        outcome = "Strong next service";
+        confidence = 93;
+        reason =
+            "Health score, customer rating, and preparation speed are all performing at strong levels.";
+        action =
+            `Maintain current staffing and monitor ${lowestMenuItem.name} for consistency.`;
+        impact =
+            "Estimated impact: customer satisfaction should remain stable or improve slightly.";
+    } else if (score >= 85 && prepTimeValue <= 8) {
+        outcome = "Stable, with one risk area";
+        confidence = 88;
+        reason =
+            `${lowestMenuItem.name} is currently the lowest-performing item at ${lowestMenuItem.satisfaction}%.`;
+        action =
+            `Review the preparation process for ${lowestMenuItem.name} before the next rush.`;
+        impact =
+            "Estimated impact: preventing a small quality decline could protect customer ratings.";
+    } else {
+        outcome = "Performance decline likely";
+        confidence = 91;
+        reason =
+            "Current health score, preparation time, or customer rating indicates operational pressure.";
+        action =
+            "Reassign one team member to the busiest station and review holding times before peak service.";
+        impact =
+            "Estimated impact: faster ticket times, fewer complaints, and improved food consistency.";
+    }
+
+    predictedOutcome.textContent = outcome;
+    predictionConfidence.textContent = `${confidence}%`;
+    predictionReason.textContent = `Reason: ${reason}`;
+    predictionAction.textContent = `Suggested action: ${action}`;
+    predictionImpact.textContent = impact;
+
+    predictionResult.classList.remove("hidden");
+
+    generatePredictionButton.textContent = "Prediction Generated ✓";
+
+    setTimeout(() => {
+        generatePredictionButton.textContent = "Generate Prediction";
+    }, 1600);
+}
+
+generatePredictionButton.addEventListener(
+    "click",
+    generatePerformancePrediction
+);
+
+// =========================
+// START APPLICATION
+// =========================
+
+renderMenuCards();
+renderAlerts();
