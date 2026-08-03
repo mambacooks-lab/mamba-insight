@@ -582,5 +582,124 @@ completePriority.addEventListener("click", () => {
 // START APPLICATION
 // =========================
 
+// ======================
+// AI DECISION ENGINE
+// ======================
+
+function updateAIPriority(healthScore) {
+
+    if (healthScore >= 95) {
+        priorityLevel.textContent = "LOW PRIORITY";
+        priorityTitle.textContent = "Restaurant performing exceptionally";
+        priorityDescription.textContent =
+            "Operations are running smoothly. Continue maintaining current standards.";
+        priorityImpact.textContent =
+            "Expected impact: maintain excellent guest satisfaction.";
+        priorityConfidence.textContent = "99% confidence";
+    }
+
+    else if (healthScore >= 90) {
+        priorityLevel.textContent = "MEDIUM PRIORITY";
+        priorityTitle.textContent = "Monitor kitchen consistency";
+        priorityDescription.textContent =
+            "Small quality fluctuations detected during service.";
+        priorityImpact.textContent =
+            "Expected impact: maintain consistency before issues grow.";
+        priorityConfidence.textContent = "92% confidence";
+    }
+
+    else {
+        priorityLevel.textContent = "HIGH PRIORITY";
+        priorityTitle.textContent = "Review fryer performance";
+        priorityDescription.textContent =
+            "Food quality has decreased below target levels.";
+        priorityImpact.textContent =
+            "Expected impact: improve consistency and customer satisfaction.";
+        priorityConfidence.textContent = "96% confidence";
+    }
+}
+
 renderMenuCards();
 renderAlerts();
+
+// =========================
+// LIVE DASHBOARD SIMULATION
+// =========================
+
+function updateLiveDashboard() {
+    const ordersElement = document.getElementById("ordersCount");
+    const revenueElement = document.getElementById("revenueAmount");
+    const ratingElement = document.getElementById("averageRating");
+    const prepTimeElement = document.getElementById("prepTime");
+    const healthScoreElement = document.getElementById("restaurantScore");
+    const healthMeterElement = document.getElementById("healthMeterFill");
+
+    // Read the current dashboard values
+    const currentOrders =
+        Number(ordersElement.textContent.replace(/,/g, "")) || 423;
+
+    const currentRevenue =
+        Number(revenueElement.textContent.replace(/[$,]/g, "")) || 6842;
+
+    const currentRating =
+        Number(ratingElement.textContent) || 4.8;
+
+    const currentPrepTime =
+        Number(prepTimeElement.textContent.replace(/[^\d]/g, "")) || 7;
+
+    // Create realistic new values
+    const newOrders = currentOrders + Math.floor(Math.random() * 8) + 1;
+    const newRevenue = currentRevenue + Math.floor(Math.random() * 180) + 25;
+
+    const ratingChange = Math.random() * 0.08 - 0.04;
+    const newRating = Math.min(
+        5,
+        Math.max(1, currentRating + ratingChange)
+    );
+
+    const prepChange = Math.floor(Math.random() * 3) - 1;
+    const newPrepTime = Math.min(
+        15,
+        Math.max(3, currentPrepTime + prepChange)
+    );
+
+    const newHealthScore = Math.floor(Math.random() * 8) + 87;
+
+    // Update the metric cards
+    ordersElement.textContent = newOrders.toLocaleString();
+    revenueElement.textContent = `$${newRevenue.toLocaleString()}`;
+    ratingElement.textContent = newRating.toFixed(1);
+    prepTimeElement.textContent = `${newPrepTime} min`;
+
+    // Update restaurant health
+    healthScoreElement.textContent = `${newHealthScore}%`;
+    healthMeterElement.style.width = `${newHealthScore}%`;
+
+    updateAIPriority(newHealthScore);
+
+    // Update the revenue chart
+    if (typeof revenueChart !== "undefined") {
+        const revenueData = revenueChart.data.datasets[0].data;
+
+        revenueData.shift();
+        revenueData.push(newRevenue);
+
+        revenueChart.update();
+    }
+
+    // Update the food-quality chart
+    if (typeof trendChart !== "undefined") {
+        const qualityData = trendChart.data.datasets[0].data;
+
+        qualityData.shift();
+        qualityData.push(newHealthScore);
+
+        trendChart.update();
+    }
+
+    console.log("Mamba Insight live dashboard updated");
+}
+
+// Update the dashboard every 8 seconds
+setInterval(updateLiveDashboard, 8000);
+
