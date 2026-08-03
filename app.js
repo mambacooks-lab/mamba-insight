@@ -64,6 +64,71 @@ const alerts = [
 // MENU CARDS
 // =========================
 
+// =========================
+// REVENUE TREND CHART
+// =========================
+
+const revenueCanvas = document.getElementById("revenueChart");
+
+const revenueChart = new Chart(revenueCanvas, {
+    type: "line",
+
+    data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+
+        datasets: [
+            {
+                label: "Revenue",
+                data: [5200, 6100, 5800, 6900, 7200, 8050, 6670],
+                borderColor: "#2563eb",
+                backgroundColor: "rgba(37, 99, 235, 0.16)",
+                borderWidth: 3,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }
+        ]
+    },
+
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+            legend: {
+                display: false
+            },
+
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `$${context.raw.toLocaleString()}`;
+                    }
+                }
+            }
+        },
+
+        scales: {
+            y: {
+                beginAtZero: false,
+
+                ticks: {
+                    callback: function(value) {
+                        return `$${value.toLocaleString()}`;
+                    }
+                }
+            },
+
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
 const menuCards = document.getElementById("menuCards");
 
 function createStars(rating) {
@@ -481,6 +546,37 @@ generatePredictionButton.addEventListener(
     "click",
     generatePerformancePrediction
 );
+
+// =========================
+// AI PRIORITY CENTER
+// =========================
+
+const openPriorityCoach = document.getElementById("openPriorityCoach");
+const completePriority = document.getElementById("completePriority");
+
+const priorityTitle = document.getElementById("priorityTitle");
+const priorityDescription = document.getElementById("priorityDescription");
+const priorityImpact = document.getElementById("priorityImpact");
+const priorityLevel = document.getElementById("priorityLevel");
+const priorityConfidence = document.getElementById("priorityConfidence");
+
+openPriorityCoach.addEventListener("click", () => {
+    generateAiInsights();
+    aiModal.classList.add("open");
+});
+
+completePriority.addEventListener("click", () => {
+    priorityLevel.textContent = "Completed";
+    priorityTitle.textContent = "Priority completed";
+    priorityDescription.textContent =
+        "The restaurant team completed today's recommended action.";
+    priorityImpact.textContent =
+        "Mamba Insight will generate a new priority after the next dashboard refresh.";
+    priorityConfidence.textContent = "Completed ✓";
+
+    completePriority.textContent = "Completed ✓";
+    completePriority.disabled = true;
+});
 
 // =========================
 // START APPLICATION

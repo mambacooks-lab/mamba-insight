@@ -274,6 +274,35 @@
 
           <div id="alertsList" class="alerts-list"></div>
         </article>
+
+
+<article class="panel revenue-chart-panel">
+  <div class="panel-heading">
+    <div>
+      <p class="eyebrow">Revenue Analytics</p>
+      <h3>7-Day Revenue Trend</h3>
+    </div>
+
+    <span class="status-badge">Live</span>
+  </div>
+
+  <div class="revenue-summary">
+    <div>
+      <span>Weekly Revenue</span>
+      <strong id="weeklyRevenue">$45,920</strong>
+    </div>
+
+    <div class="revenue-growth">
+      +12.4% vs last week
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="revenueChart"></canvas>
+  </div>
+</article>
+
+</section>
       </section>
     </main>
   </div>
@@ -285,6 +314,8 @@
         <p class="eyebrow">Mamba Intelligence</p>
         <h3>AI Restaurant Coach</h3>
       </div>
+
+  
 
       <button id="closeAiModal" class="modal-close" aria-label="Close">
         ×
