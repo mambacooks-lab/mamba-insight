@@ -1264,3 +1264,60 @@ body.dark-mode .revenue-summary span {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================
+   PERFORMANCE TRENDS
+========================= */
+
+.trends-panel{
+    grid-column: span 2;
+}
+
+.trends-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:24px;
+}
+
+.trend-card{
+    background:#1b2740;
+    border-radius:16px;
+    padding:20px;
+    transition:.25s;
+}
+
+.trend-card:hover{
+    transform:translateY(-4px);
+    background:#223250;
+}
+
+.trend-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.trend-card span{
+    color:#c7d4ec;
+    font-size:15px;
+}
+
+.trend-card strong{
+    font-size:22px;
+    font-weight:700;
+}
+
+.trend-card p{
+    color:#93a6c8;
+    margin:0;
+}
+
+.trend-positive{
+    color:#2ecc71;
+}
+
+.trend-negative{
+    color:#ff5d5d;
+}

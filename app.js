@@ -706,6 +706,39 @@ function updateExecutiveSummary(
 }
 
 // =========================
+// PERFORMANCE TRENDS ENGINE
+// =========================
+
+function updatePerformanceTrends() {
+    const revenueTrend = document.getElementById("revenueTrend");
+    const qualityTrend = document.getElementById("qualityTrend");
+    const prepTrend = document.getElementById("prepTrend");
+    const ratingTrend = document.getElementById("ratingTrend");
+
+    const revenueChange = Number((Math.random() * 18 - 3).toFixed(1));
+    const qualityChange = Number((Math.random() * 8 - 2).toFixed(1));
+    const prepChange = Number((Math.random() * 3 - 1.5).toFixed(1));
+    const ratingChange = Number((Math.random() * 0.6 - 0.2).toFixed(1));
+
+    setTrendValue(revenueTrend, revenueChange, "%", true);
+    setTrendValue(qualityTrend, qualityChange, "%", true);
+    setTrendValue(prepTrend, prepChange, " min", false);
+    setTrendValue(ratingTrend, ratingChange, "", true);
+}
+
+function setTrendValue(element, value, suffix, higherIsBetter) {
+    const isPositive = higherIsBetter ? value >= 0 : value <= 0;
+
+    element.classList.remove("trend-positive", "trend-negative");
+    element.classList.add(
+        isPositive ? "trend-positive" : "trend-negative"
+    );
+
+    const sign = value > 0 ? "+" : "";
+    element.textContent = `${sign}${value}${suffix}`;
+}
+
+// =========================
 // START APPLICATION
 // =========================
 
@@ -806,13 +839,15 @@ function updateLiveDashboard() {
     updateAIPriority(newHealthScore);
 
     updateAlerts(newHealthScore, newPrepTime, newRating);
-    
+
     updateExecutiveSummary(
     newHealthScore,
     newRevenue,
     newRating,
     newPrepTime
 );
+
+updatePerformanceTrends();
 
 
     // Update the revenue chart
