@@ -277,6 +277,44 @@ const trendChart = new Chart(chartCanvas, {
 
 const alertsList = document.getElementById("alertsList");
 
+function updateAlerts(healthScore, prepTime, rating) {
+    alerts.length = 0;
+
+    if (healthScore < 90) {
+        alerts.push({
+            icon: "🍟",
+            title: "Food Quality Dropping",
+            message: "Restaurant health score is below target."
+        });
+    }
+
+    if (prepTime > 8) {
+        alerts.push({
+            icon: "⏱️",
+            title: "Kitchen Slowdown",
+            message: "Average prep time is increasing."
+        });
+    }
+
+    if (rating < 4.7) {
+        alerts.push({
+            icon: "⭐",
+            title: "Customer Satisfaction",
+            message: "Customer ratings have decreased."
+        });
+    }
+
+    if (alerts.length === 0) {
+        alerts.push({
+            icon: "🟢",
+            title: "Operations Running Smoothly",
+            message: "All restaurant metrics are healthy."
+        });
+    }
+
+    renderAlerts();
+}
+
 function renderAlerts() {
     alertsList.innerHTML = alerts
         .map((alert) => {
@@ -588,6 +626,7 @@ completePriority.addEventListener("click", () => {
 
 function updateAIPriority(healthScore) {
 
+
     if (healthScore >= 95) {
         priorityLevel.textContent = "LOW PRIORITY";
         priorityTitle.textContent = "Restaurant performing exceptionally";
@@ -676,6 +715,8 @@ function updateLiveDashboard() {
     healthMeterElement.style.width = `${newHealthScore}%`;
 
     updateAIPriority(newHealthScore);
+    updateAlerts(newHealthScore, newPrepTime, newRating);
+
 
     // Update the revenue chart
     if (typeof revenueChart !== "undefined") {
