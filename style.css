@@ -1107,3 +1107,160 @@ body.dark-mode .revenue-summary span {
         flex-direction: column;
     }
 }
+
+/* ===========================
+   EXECUTIVE SUMMARY
+=========================== */
+
+.executive-summary-panel{
+    grid-column: span 2;
+}
+
+.executive-summary-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:24px;
+    margin-top:20px;
+}
+
+.executive-summary-main p{
+    color:#c6d0e3;
+    line-height:1.7;
+    font-size:15px;
+}
+
+.executive-recommendation{
+    margin-top:20px;
+    padding:16px;
+    background:#1f2d48;
+    border-radius:12px;
+}
+
+.executive-recommendation span{
+    display:block;
+    color:#6ea8ff;
+    font-size:12px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.executive-recommendation strong{
+    color:white;
+    font-size:16px;
+}
+
+.executive-highlights{
+    display:grid;
+    gap:15px;
+}
+
+.executive-highlight{
+    background:#1b2740;
+    padding:16px;
+    border-radius:12px;
+}
+
+.executive-highlight span{
+    display:block;
+    color:#92a4c6;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.executive-highlight strong{
+    color:white;
+    font-size:24px;
+}
+
+.executive-status{
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.executive-status.healthy{
+    background:#1d5f43;
+    color:#7dffb5;
+}
+
+.executive-status.warning{
+    background:#6b5413;
+    color:#ffd86b;
+}
+
+.executive-status.critical{
+    background:#6a1d25;
+    color:#ff8b95;
+}
+
+/* =========================
+   AI FORECAST PANEL
+========================= */
+
+.forecast-panel {
+    grid-column: span 2;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 22px 0;
+}
+
+.forecast-card {
+    padding: 18px;
+    border-radius: 14px;
+    background: #1b2740;
+}
+
+.forecast-card span {
+    display: block;
+    margin-bottom: 8px;
+    color: #92a4c6;
+    font-size: 13px;
+}
+
+.forecast-card strong {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.forecast-message {
+    padding: 18px;
+    border-radius: 14px;
+    background: #1f2d48;
+}
+
+.forecast-message span {
+    display: block;
+    margin-bottom: 8px;
+    color: #6ea8ff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+.forecast-message p {
+    margin: 0;
+    color: #d6deed;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .forecast-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .forecast-panel {
+        grid-column: span 1;
+    }
+
+    .forecast-grid {
+        grid-template-columns: 1fr;
+    }
+}

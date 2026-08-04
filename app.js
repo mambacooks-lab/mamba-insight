@@ -617,6 +617,95 @@ completePriority.addEventListener("click", () => {
 });
 
 // =========================
+// EXECUTIVE SUMMARY ENGINE
+// =========================
+
+function updateExecutiveSummary(
+    healthScore,
+    revenue,
+    rating,
+    prepTime
+) {
+    const executiveStatus =
+        document.getElementById("executiveStatus");
+
+    const executiveSummaryText =
+        document.getElementById("executiveSummaryText");
+
+    const executiveRecommendation =
+        document.getElementById("executiveRecommendation");
+
+    const executiveRevenue =
+        document.getElementById("executiveRevenue");
+
+    const executiveRating =
+        document.getElementById("executiveRating");
+
+    const executiveHealth =
+        document.getElementById("executiveHealth");
+
+    const executivePrepTime =
+        document.getElementById("executivePrepTime");
+
+    // Update the four highlight cards
+    executiveRevenue.textContent =
+        `$${revenue.toLocaleString()}`;
+
+    executiveRating.textContent =
+        `${rating.toFixed(1)} ⭐`;
+
+    executiveHealth.textContent =
+        `${healthScore}%`;
+
+    executivePrepTime.textContent =
+        `${prepTime} min`;
+
+    // Remove the old status color
+    executiveStatus.classList.remove(
+        "healthy",
+        "warning",
+        "critical"
+    );
+
+    if (
+        healthScore >= 95 &&
+        prepTime <= 7 &&
+        rating >= 4.7
+    ) {
+        executiveStatus.textContent = "Excellent";
+        executiveStatus.classList.add("healthy");
+
+        executiveSummaryText.textContent =
+            "Restaurant performance is excellent. Customer satisfaction is strong, food quality is above target, and kitchen operations are running efficiently.";
+
+        executiveRecommendation.textContent =
+            "Maintain current procedures and recognize the team for strong performance.";
+    } else if (
+        healthScore >= 90 &&
+        prepTime <= 9 &&
+        rating >= 4.5
+    ) {
+        executiveStatus.textContent = "Stable";
+        executiveStatus.classList.add("warning");
+
+        executiveSummaryText.textContent =
+            "Restaurant performance is stable, but small operational changes should be monitored before they become larger problems.";
+
+        executiveRecommendation.textContent =
+            "Monitor kitchen consistency and review the lowest-performing menu item during the next shift.";
+    } else {
+        executiveStatus.textContent = "Needs Attention";
+        executiveStatus.classList.add("critical");
+
+        executiveSummaryText.textContent =
+            "Restaurant performance requires attention. One or more key metrics are outside the recommended operating range.";
+
+        executiveRecommendation.textContent =
+            "Review prep times, food quality, and customer feedback with the shift manager immediately.";
+    }
+}
+
+// =========================
 // START APPLICATION
 // =========================
 
@@ -715,7 +804,15 @@ function updateLiveDashboard() {
     healthMeterElement.style.width = `${newHealthScore}%`;
 
     updateAIPriority(newHealthScore);
+
     updateAlerts(newHealthScore, newPrepTime, newRating);
+    
+    updateExecutiveSummary(
+    newHealthScore,
+    newRevenue,
+    newRating,
+    newPrepTime
+);
 
 
     // Update the revenue chart
