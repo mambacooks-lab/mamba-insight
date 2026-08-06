@@ -739,6 +739,87 @@ function setTrendValue(element, value, suffix, higherIsBetter) {
 }
 
 // =========================
+// AI FORECAST ENGINE
+// =========================
+
+function updateForecast(
+    currentRevenue,
+    currentRating,
+    currentPrepTime,
+    healthScore
+) {
+    const forecastRevenue =
+        document.getElementById("forecastRevenue");
+
+    const forecastRating =
+        document.getElementById("forecastRating");
+
+    const forecastPrep =
+        document.getElementById("forecastPrep");
+
+    const forecastRisk =
+        document.getElementById("forecastRisk");
+
+    const forecastText =
+        document.getElementById("forecastText");
+
+    const revenueGrowth =
+        1 + (Math.random() * 0.16 - 0.03);
+
+    const predictedRevenue =
+        Math.round(currentRevenue * revenueGrowth);
+
+    const predictedRating = Math.min(
+        5,
+        Math.max(
+            1,
+            currentRating + (Math.random() * 0.2 - 0.05)
+        )
+    );
+
+    const predictedPrepTime = Math.min(
+        15,
+        Math.max(
+            3,
+            currentPrepTime + Math.floor(Math.random() * 3) - 1
+        )
+    );
+
+    let riskLevel = "LOW";
+    let predictionMessage =
+        "Tomorrow is expected to remain stable. Maintain current staffing and preparation levels.";
+
+    if (
+        healthScore < 90 ||
+        predictedPrepTime > 9 ||
+        predictedRating < 4.6
+    ) {
+        riskLevel = "HIGH";
+        predictionMessage =
+            "Tomorrow may require additional attention. Review staffing, food quality, and kitchen readiness before peak service.";
+    } else if (
+        healthScore < 95 ||
+        predictedPrepTime > 7
+    ) {
+        riskLevel = "MEDIUM";
+        predictionMessage =
+            "Moderate operational pressure is expected tomorrow. Prepare extra ingredients and monitor kitchen consistency during peak hours.";
+    }
+
+    forecastRevenue.textContent =
+        `$${predictedRevenue.toLocaleString()}`;
+
+    forecastRating.textContent =
+        `${predictedRating.toFixed(1)} ⭐`;
+
+    forecastPrep.textContent =
+        `${predictedPrepTime} min`;
+
+    forecastRisk.textContent = riskLevel;
+    forecastText.textContent = predictionMessage;
+}
+
+// =========================
 // START APPLICATION
 // =========================
 
@@ -848,6 +929,13 @@ function updateLiveDashboard() {
 );
 
 updatePerformanceTrends();
+
+updateForecast(
+    newRevenue,
+    newRating,
+    newPrepTime,
+    newHealthScore
+);
 
 
     // Update the revenue chart
