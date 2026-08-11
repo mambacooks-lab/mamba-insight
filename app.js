@@ -360,7 +360,7 @@ function refreshDashboard() {
     }, 1500);
 }
 
-refreshButton.addEventListener("click", refreshDashboard);
+refreshButton.addEventListener("click", updateLiveDashboard);
 
 // =========================
 // DARK MODE
@@ -488,7 +488,59 @@ closeAiModal.addEventListener("click", closeAiCoach);
 aiModal.addEventListener("click", (event) => {
     if (event.target === aiModal) {
         closeAiCoach();
+    } 
+    
+    // =========================
+// FINANCIAL IMPACT ENGINE
+// =========================
+
+function updateFinancialImpact(
+    healthScore,
+    revenue
+) {
+    const dailyRisk =
+        document.getElementById("dailyRevenueRisk");
+
+    const weeklyRisk =
+        document.getElementById("weeklyRevenueRisk");
+
+    const potentialRecovery =
+        document.getElementById("potentialRecovery");
+
+    const impactMessage =
+        document.getElementById("financialImpactMessage");
+
+    let riskPercent = 0;
+
+    if (healthScore < 88) {
+        riskPercent = 0.10;
+    } else if (healthScore < 92) {
+        riskPercent = 0.06;
+    } else if (healthScore < 95) {
+        riskPercent = 0.03;
     }
+
+    const dailyLoss = Math.round(revenue * riskPercent);
+    const weeklyLoss = dailyLoss * 7;
+    const recovery = Math.round(dailyLoss * 0.75);
+
+    dailyRisk.textContent =
+        `$${dailyLoss.toLocaleString()}`;
+
+    weeklyRisk.textContent =
+        `$${weeklyLoss.toLocaleString()}`;
+
+    potentialRecovery.textContent =
+        `$${recovery.toLocaleString()}`;
+
+    if (dailyLoss === 0) {
+        impactMessage.textContent =
+            "Restaurant performance is currently within a healthy range. No significant revenue risk detected.";
+    } else {
+        impactMessage.textContent =
+            `Based on the current health score, approximately $${dailyLoss.toLocaleString()} in daily revenue may be at risk if operational issues continue.`;
+    }
+}
 });
 
 document.addEventListener("keydown", (event) => {
@@ -834,6 +886,8 @@ function updateAICoach(
     prepTime,
     rating,
     revenue
+
+
 ) {
     const coachTitle =
         document.getElementById("coachTitle");
@@ -1138,6 +1192,11 @@ updateAICoach(
     newHealthScore,
     newPrepTime,
     newRating,
+    newRevenue
+);
+
+updateFinancialImpact(
+    newHealthScore,
     newRevenue
 );
 

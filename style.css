@@ -1321,3 +1321,58 @@ body.dark-mode .revenue-summary span {
 .trend-negative{
     color:#ff5d5d;
 }
+
+/* =========================
+   FINANCIAL IMPACT
+========================= */
+
+
+
+.financial-impact-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #1b2740;
+}
+
+.financial-impact-card h4 {
+    margin-top: 6px;
+    font-size: 20px;
+}
+
+.financial-impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.impact-item {
+    padding: 16px;
+    border-radius: 12px;
+    background: #223250;
+}
+
+.impact-item span {
+    display: block;
+    margin-bottom: 8px;
+    color: #92a4c6;
+    font-size: 13px;
+}
+
+.impact-item strong {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.impact-message {
+    margin-top: 16px;
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .financial-impact-grid {
+        grid-template-columns: 1fr;
+    }
+}
