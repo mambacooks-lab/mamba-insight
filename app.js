@@ -594,6 +594,8 @@ const completePriority = document.getElementById("completePriority");
 
 const priorityTitle = document.getElementById("priorityTitle");
 const priorityDescription = document.getElementById("priorityDescription");
+const dashboardPriorityTitle = document.getElementById("dashboardPriorityTitle");
+const dashboardPriorityDescription = document.getElementById("dashboardPriorityDescription");
 const priorityImpact = document.getElementById("priorityImpact");
 const priorityLevel = document.getElementById("priorityLevel");
 const priorityConfidence = document.getElementById("priorityConfidence");
@@ -820,6 +822,132 @@ function updateForecast(
 }
 
 // =========================
+// MAMBA AI COACH V1
+// =========================
+
+// =========================
+// MAMBA AI COACH V1
+// =========================
+
+function updateAICoach(
+    healthScore,
+    prepTime,
+    rating,
+    revenue
+) {
+    const coachTitle =
+        document.getElementById("coachTitle");
+
+    const coachMessage =
+        document.getElementById("coachMessage");
+
+    // RED — serious operational problem
+    if (healthScore <= 88 || prepTime >= 10) {
+
+        coachTitle.textContent =
+            "Kitchen performance needs immediate attention";
+
+        coachMessage.textContent =
+            `Health is ${healthScore}% with an average prep time of ${prepTime} minutes. Review kitchen flow, fryer consistency, and peak-hour preparation.`;
+
+    }
+
+    // ORANGE — customer experience slipping
+    else if (rating <= 4.7) {
+
+        coachTitle.textContent =
+            "Customer experience should be reviewed";
+
+        coachMessage.textContent =
+            `Customer rating is currently ${rating.toFixed(1)} stars. Review recent feedback and identify which menu items or service issues need attention.`;
+
+    }
+
+    // YELLOW — kitchen starting to slow
+    else if (prepTime >= 8) {
+
+        coachTitle.textContent =
+            "Kitchen speed is beginning to slow";
+
+        coachMessage.textContent =
+            `Average prep time has reached ${prepTime} minutes. Consider improving prep before peak service and monitoring the busiest station.`;
+
+    }
+
+    // GREEN — strong performance
+    else if (healthScore >= 92 && prepTime <= 6) {
+
+        coachTitle.textContent =
+            "Restaurant is performing strongly";
+
+        coachMessage.textContent =
+            `Health is ${healthScore}% and prep time is only ${prepTime} minutes. Current kitchen procedures are working well. Maintain the team's current approach.`;
+
+    }
+
+    // NORMAL
+    else {
+
+        coachTitle.textContent =
+            "Restaurant performance is stable";
+
+        coachMessage.textContent =
+            `Health is ${healthScore}% with a ${rating.toFixed(1)} star rating and ${prepTime}-minute prep time. Continue monitoring service and kitchen consistency.`;
+
+    }
+}
+    const coachTitle =
+        document.getElementById("coachTitle");
+
+    const coachMessage =
+        document.getElementById("coachMessage");
+
+    if (
+        healthScore < 90 &&
+        prepTime > 8
+    ) {
+        coachTitle.textContent =
+            "Kitchen slowdown is affecting performance";
+
+        coachMessage.textContent =
+            `Health is ${healthScore}% and prep time is ${prepTime} minutes. Focus on kitchen flow, fryer consistency, and peak-hour preparation.`;
+    } else if (
+        rating < 4.6
+    ) {
+        coachTitle.textContent =
+            "Customer satisfaction needs attention";
+
+        coachMessage.textContent =
+            `Customer rating is ${rating.toFixed(1)} stars. Review recent feedback and identify the menu item causing the most complaints.`;
+    } else if (
+        revenue >= 8000 &&
+        prepTime > 7
+    ) {
+        coachTitle.textContent =
+            "High demand is putting pressure on the kitchen";
+
+        coachMessage.textContent =
+            `Revenue has reached $${revenue.toLocaleString()}, while prep time is ${prepTime} minutes. Prepare more before peak service and consider shifting staff to the busiest station.`;
+    } else if (
+        healthScore >= 95 &&
+        prepTime <= 7 &&
+        rating >= 4.7
+    ) {
+        coachTitle.textContent =
+            "Restaurant is performing exceptionally";
+
+        coachMessage.textContent =
+            "Food quality, kitchen speed, and customer satisfaction are all strong. Maintain current procedures and recognize the team.";
+    } else {
+        coachTitle.textContent =
+            "Restaurant performance is stable";
+
+        coachMessage.textContent =
+            "Operations are within a normal range. Continue monitoring kitchen consistency and the lowest-performing menu item.";
+    }
+
+
+// =========================
 // START APPLICATION
 // =========================
 
@@ -827,39 +955,103 @@ function updateForecast(
 // AI DECISION ENGINE
 // ======================
 
-function updateAIPriority(healthScore) {
 
+  // =========================
+// AI DECISION ENGINE V2
+// =========================
 
-    if (healthScore >= 95) {
-        priorityLevel.textContent = "LOW PRIORITY";
-        priorityTitle.textContent = "Restaurant performing exceptionally";
-        priorityDescription.textContent =
-            "Operations are running smoothly. Continue maintaining current standards.";
-        priorityImpact.textContent =
-            "Expected impact: maintain excellent guest satisfaction.";
-        priorityConfidence.textContent = "99% confidence";
-    }
-
-    else if (healthScore >= 90) {
-        priorityLevel.textContent = "MEDIUM PRIORITY";
-        priorityTitle.textContent = "Monitor kitchen consistency";
-        priorityDescription.textContent =
-            "Small quality fluctuations detected during service.";
-        priorityImpact.textContent =
-            "Expected impact: maintain consistency before issues grow.";
-        priorityConfidence.textContent = "92% confidence";
-    }
-
-    else {
+function updateAIPriority(
+    healthScore,
+    prepTime,
+    rating,
+    revenue
+) {
+    if (
+        healthScore < 90 &&
+        prepTime > 8
+    ) {
         priorityLevel.textContent = "HIGH PRIORITY";
-        priorityTitle.textContent = "Review fryer performance";
+        priorityTitle.textContent =
+            "Kitchen performance is affecting food quality";
+
         priorityDescription.textContent =
-            "Food quality has decreased below target levels.";
+            `Health is ${healthScore}% and prep time is ${prepTime} minutes. Kitchen speed and consistency both need attention.`;
+
         priorityImpact.textContent =
-            "Expected impact: improve consistency and customer satisfaction.";
-        priorityConfidence.textContent = "96% confidence";
+            "Recommended action: add line support, inspect the fryer station, and review peak-hour preparation.";
+
+        priorityConfidence.textContent =
+            "97% confidence";
+    } else if (
+        rating < 4.6
+    ) {
+        priorityLevel.textContent = "HIGH PRIORITY";
+        priorityTitle.textContent =
+            "Customer satisfaction is declining";
+
+        priorityDescription.textContent =
+            `The current rating is ${rating.toFixed(1)} stars, which is below the target range.`;
+
+        priorityImpact.textContent =
+            "Recommended action: review recent feedback and identify the menu item causing the most complaints.";
+
+        priorityConfidence.textContent =
+            "95% confidence";
+    } else if (
+        revenue >= 8000 &&
+        prepTime > 7
+    ) {
+        priorityLevel.textContent = "MEDIUM PRIORITY";
+        priorityTitle.textContent =
+            "Demand is increasing faster than kitchen capacity";
+
+        priorityDescription.textContent =
+            `Revenue has reached $${revenue.toLocaleString()}, while prep time is ${prepTime} minutes.`;
+
+        priorityImpact.textContent =
+            "Recommended action: prepare additional ingredients and add one cook during the busiest service period.";
+
+        priorityConfidence.textContent =
+            "94% confidence";
+    } else if (
+        healthScore >= 95 &&
+        prepTime <= 7 &&
+        rating >= 4.7
+    ) {
+        priorityLevel.textContent = "LOW PRIORITY";
+        priorityTitle.textContent =
+            "Restaurant performing exceptionally";
+
+        priorityDescription.textContent =
+            "Food quality, kitchen efficiency, and customer satisfaction are all within excellent ranges.";
+
+        priorityImpact.textContent =
+            "Recommended action: maintain current procedures and recognize the team’s performance.";
+
+        priorityConfidence.textContent =
+            "99% confidence";
+    } else {
+        priorityLevel.textContent = "MEDIUM PRIORITY";
+        priorityTitle.textContent =
+            "Monitor kitchen consistency";
+
+        priorityDescription.textContent =
+            "Restaurant performance is stable, but small changes in speed or quality should be monitored.";
+
+        priorityImpact.textContent =
+            "Recommended action: review the lowest-performing menu item during the next shift.";
+
+        priorityConfidence.textContent =
+            "92% confidence";
     }
+        dashboardPriorityTitle.textContent =
+        priorityTitle.textContent;
+
+       dashboardPriorityDescription.textContent =
+       priorityDescription.textContent;
 }
+
+
 
 renderMenuCards();
 renderAlerts();
@@ -917,7 +1109,12 @@ function updateLiveDashboard() {
     healthScoreElement.textContent = `${newHealthScore}%`;
     healthMeterElement.style.width = `${newHealthScore}%`;
 
-    updateAIPriority(newHealthScore);
+    updateAIPriority(
+    newHealthScore,
+    newPrepTime,
+    newRating,
+    newRevenue
+);
 
     updateAlerts(newHealthScore, newPrepTime, newRating);
 
@@ -935,6 +1132,13 @@ updateForecast(
     newRating,
     newPrepTime,
     newHealthScore
+);
+
+updateAICoach(
+    newHealthScore,
+    newPrepTime,
+    newRating,
+    newRevenue
 );
 
 
