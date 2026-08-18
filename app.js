@@ -950,55 +950,7 @@ function updateAICoach(
 
     }
 }
-    const coachTitle =
-        document.getElementById("coachTitle");
-
-    const coachMessage =
-        document.getElementById("coachMessage");
-
-    if (
-        healthScore < 90 &&
-        prepTime > 8
-    ) {
-        coachTitle.textContent =
-            "Kitchen slowdown is affecting performance";
-
-        coachMessage.textContent =
-            `Health is ${healthScore}% and prep time is ${prepTime} minutes. Focus on kitchen flow, fryer consistency, and peak-hour preparation.`;
-    } else if (
-        rating < 4.6
-    ) {
-        coachTitle.textContent =
-            "Customer satisfaction needs attention";
-
-        coachMessage.textContent =
-            `Customer rating is ${rating.toFixed(1)} stars. Review recent feedback and identify the menu item causing the most complaints.`;
-    } else if (
-        revenue >= 8000 &&
-        prepTime > 7
-    ) {
-        coachTitle.textContent =
-            "High demand is putting pressure on the kitchen";
-
-        coachMessage.textContent =
-            `Revenue has reached $${revenue.toLocaleString()}, while prep time is ${prepTime} minutes. Prepare more before peak service and consider shifting staff to the busiest station.`;
-    } else if (
-        healthScore >= 95 &&
-        prepTime <= 7 &&
-        rating >= 4.7
-    ) {
-        coachTitle.textContent =
-            "Restaurant is performing exceptionally";
-
-        coachMessage.textContent =
-            "Food quality, kitchen speed, and customer satisfaction are all strong. Maintain current procedures and recognize the team.";
-    } else {
-        coachTitle.textContent =
-            "Restaurant performance is stable";
-
-        coachMessage.textContent =
-            "Operations are within a normal range. Continue monitoring kitchen consistency and the lowest-performing menu item.";
-    }
+  
 
 
 // =========================
