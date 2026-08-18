@@ -951,6 +951,107 @@ function updateAICoach(
     }
 }
   
+// ==========================
+// AI COACH EXPLANATION
+// ==========================
+
+const coachExplainBtn = document.getElementById("coachExplainBtn");
+const coachExplanation = document.getElementById("coachExplanation");
+const coachCause = document.getElementById("coachCause");
+const coachMetric = document.getElementById("coachMetric");
+
+coachExplainBtn.addEventListener("click", () => {
+    const healthScore = parseInt(
+        document.getElementById("restaurantScore").textContent
+    );
+
+    const prepTime = parseInt(
+        document.getElementById("prepTime").textContent
+    );
+
+    const rating = parseFloat(
+        document.getElementById("averageRating").textContent
+    );
+
+    if (healthScore <= 88 || prepTime >= 10) {
+        coachCause.textContent =
+            "Kitchen speed and consistency are currently reducing overall restaurant performance.";
+
+        coachMetric.textContent =
+            `Health score is ${healthScore}% and average prep time is ${prepTime} minutes.`;
+    } else if (rating < 4.7) {
+        coachCause.textContent =
+            "Customer satisfaction has declined and should be reviewed.";
+
+        coachMetric.textContent =
+            `Current customer rating is ${rating.toFixed(1)} stars.`;
+    } else {
+        coachCause.textContent =
+            "Restaurant performance is currently within the expected operating range.";
+
+        coachMetric.textContent =
+            `Health score is ${healthScore}% with a ${rating.toFixed(1)} star rating and ${prepTime}-minute prep time.`;
+    }
+
+    coachExplanation.classList.toggle("hidden");
+    });
+
+// ==========================
+// MODAL WHY EXPLANATION
+// ==========================
+
+const modalWhyBtn = document.getElementById("modalWhyBtn");
+const modalWhyExplanation = document.getElementById("modalWhyExplanation");
+const modalWhyCause = document.getElementById("modalWhyCause");
+const modalWhyMetric = document.getElementById("modalWhyMetric");
+
+modalWhyBtn.addEventListener("click", () => {
+    const healthScore = parseInt(
+        document.getElementById("restaurantScore").textContent
+    );
+
+    const prepTime = parseInt(
+        document.getElementById("prepTime").textContent
+    );
+
+    const rating = parseFloat(
+        document.getElementById("averageRating").textContent
+    );
+
+    if (prepTime >= 10) {
+    modalWhyCause.textContent =
+        "Main cause: kitchen speed is creating operational pressure.";
+
+    modalWhyMetric.textContent =
+        `Supporting metric: average prep time is ${prepTime} minutes.`;
+}
+
+else if (healthScore <= 88) {
+    modalWhyCause.textContent =
+        "Main cause: overall restaurant health is below the preferred operating range.";
+
+    modalWhyMetric.textContent =
+        `Supporting metric: restaurant health is currently ${healthScore}%.`;
+}
+
+else if (rating < 4.7) {
+    modalWhyCause.textContent =
+        "Main cause: customer satisfaction is below the preferred range.";
+
+    modalWhyMetric.textContent =
+        `Supporting metric: customer rating is ${rating.toFixed(1)} stars.`;
+}
+
+else {
+    modalWhyCause.textContent =
+        "Main cause: no major operational issue is currently detected.";
+
+    modalWhyMetric.textContent =
+        `Supporting metric: health is ${healthScore}%, rating is ${rating.toFixed(1)}, and prep time is ${prepTime} minutes.`;
+}
+
+    modalWhyExplanation.classList.toggle("hidden");
+});
 
 
 // =========================
@@ -1178,4 +1279,3 @@ updateFinancialImpact(
 
 // Update the dashboard every 8 seconds
 setInterval(updateLiveDashboard, 8000);
-
